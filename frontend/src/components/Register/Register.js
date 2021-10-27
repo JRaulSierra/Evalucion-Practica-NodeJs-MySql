@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Register.css";
+import Axios from "axios";
 
 function Register() {
   const [nombre, setNombre] = useState("");
@@ -11,18 +12,35 @@ function Register() {
   const [born, setBorn] = useState(0);
   const [email, setEmail] = useState("");
 
-  const actionListener = () => {};
+  const actionListener = () => {
+    alert(apellidos);
+    Axios.post("http://localhost:3001/createUsuario", {
+      nombre: nombre,
+      apellidos: apellidos,
+      usuario: usuario,
+      contraseña: contraseña,
+      telefono: telefono,
+      direccion: direccion,
+      born: born,
+      email: email,
+    })
+      .then((res) => {
+        console.log("creacion completa");
+      })
+      .catch((err) => {
+        console.log("no se pudo crear");
+      });
+  };
 
   return (
     // agregar un onsubmit
-    <form className="form" onSubmit={actionListener}>
+    <form className="form">
       <div className="title">Registro</div>
       <div className="divv">
         <label className="text">Nombres</label>
         <input
           type="text"
           className="input"
-          autocomplete="off"
           name="name"
           required
           onChange={(event) => {
@@ -33,7 +51,6 @@ function Register() {
         <input
           type="text"
           className="input"
-          autocomplete="off"
           name="lastname"
           required
           onChange={(event) => {
@@ -46,7 +63,6 @@ function Register() {
         <input
           type="text"
           className="input"
-          autocomplete="off"
           name="usuario"
           required
           onChange={(event) => {
@@ -57,7 +73,6 @@ function Register() {
         <input
           type="text"
           className="input"
-          autocomplete="off"
           name="pass"
           required
           onChange={(event) => {
@@ -70,7 +85,6 @@ function Register() {
         <input
           type="number"
           className="input"
-          autocomplete="off"
           name="tel"
           required
           onChange={(event) => {
@@ -81,7 +95,6 @@ function Register() {
         <input
           type="email"
           className="input"
-          autocomplete="off"
           name="email"
           required
           onChange={(event) => {
@@ -94,7 +107,6 @@ function Register() {
         <input
           type="date"
           className="input"
-          autocomplete="off"
           name="birth"
           required
           onChange={(event) => {
@@ -104,7 +116,6 @@ function Register() {
         <label className="text">Dirección</label>
         <textarea
           name="direccion"
-          autocomplete="off"
           className="input"
           required
           onChange={(event) => {
@@ -112,7 +123,12 @@ function Register() {
           }}
         />
       </div>
-      <input className="button" type="submit" value="Registrar" />
+      <input
+        className="button"
+        type="submit"
+        value="Registrar"
+        onClick={actionListener}
+      />
     </form>
   );
 }
