@@ -9,7 +9,7 @@ function UsuarioDesempeño(props) {
   const [area, setArea] = useState("");
   const actionHandler = () => {
       console.log(area)
-      
+
   };
 
   return (
@@ -38,7 +38,7 @@ function UsuarioDesempeño(props) {
           </Button>
         </div>
         <Table striped bordered hover size="sm">
-          <caption> Agregue el area sus areas de desempeño. </caption>
+          <caption> Agregue sus areas de desempeño. </caption>
           <thead>
             <tr>
               <th>#</th>
