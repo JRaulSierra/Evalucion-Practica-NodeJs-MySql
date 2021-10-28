@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "./Register.css";
 import Axios from "axios";
+import Swal from "sweetalert2";
+import Navbar from "../Navbar/Navbar";
+
 
 function Register() {
   const [nombre, setNombre] = useState("");
@@ -12,9 +15,9 @@ function Register() {
   const [born, setBorn] = useState(0);
   const [email, setEmail] = useState("");
 
-  const actionListener = () => {
+  const actionListener = async () => {
     alert(apellidos);
-    Axios.post("http://localhost:3001/createUsuario", {
+    let res = await Axios.post("http://localhost:3001/createUsuario", {
       nombre: nombre,
       apellidos: apellidos,
       usuario: usuario,
@@ -23,113 +26,112 @@ function Register() {
       direccion: direccion,
       born: born,
       email: email,
-    })
-      .then((res) => {
-        console.log("creacion completa");
-      })
-      .catch((err) => {
-        console.log("no se pudo crear");
-      });
+    });
+    let data = res.data;
+    
   };
 
   return (
     // agregar un onsubmit
-    <form className="form">
-      <div className="title">Registro</div>
-      <div className="divv">
-        <label className="text">Nombres</label>
+    <div>
+      <Navbar/>
+      <form className="form">
+        <div className="title">Registro</div>
+        <div className="divv">
+          <label className="text">Nombres</label>
+          <input
+            type="text"
+            className="input"
+            name="name"
+            required
+            onChange={(event) => {
+              setNombre(event.target.value);
+            }}
+          />
+          <label className="text">Apellidos</label>
+          <input
+            type="text"
+            className="input"
+            name="lastname"
+            required
+            onChange={(event) => {
+              setApellidos(event.target.value);
+            }}
+          />
+        </div>
+        <div className="divv">
+          <label className="text">Usuario</label>
+          <input
+            type="text"
+            className="input"
+            name="usuario"
+            required
+            onChange={(event) => {
+              setUsuario(event.target.value);
+            }}
+          />
+          <label className="text">Contraseña</label>
+          <input
+            type="text"
+            className="input"
+            name="pass"
+            required
+            onChange={(event) => {
+              setContraseña(event.target.value);
+            }}
+          />
+        </div>
+        <div className="divv">
+          <label className="text">Telefono</label>
+          <input
+            type="number"
+            className="input"
+            name="tel"
+            required
+            onChange={(event) => {
+              setTelefono(event.target.value);
+            }}
+          />
+          <label className="text">Email</label>
+          <input
+            type="email"
+            className="input"
+            name="email"
+            required
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }}
+          />
+        </div>
+        <div className="divv">
+          <label className="text">Fecha de nacimiento</label>
+          <input
+            type="date"
+            className="input"
+            name="birth"
+            required
+            onChange={(event) => {
+              setBorn(event.target.value);
+            }}
+          />
+          <label className="text">Dirección</label>
+          <textarea
+            name="direccion"
+            className="input"
+            required
+            onChange={(event) => {
+              setDireccion(event.target.value);
+            }}
+          />
+        </div>
         <input
-          type="text"
-          className="input"
-          name="name"
-          required
-          onChange={(event) => {
-            setNombre(event.target.value);
-          }}
+          className="button"
+          type="submit"
+          value="Registrar"
+          onClick={actionListener}
         />
-        <label className="text">Apellidos</label>
-        <input
-          type="text"
-          className="input"
-          name="lastname"
-          required
-          onChange={(event) => {
-            setApellidos(event.target.value);
-          }}
-        />
-      </div>
-      <div className="divv">
-        <label className="text">Usuario</label>
-        <input
-          type="text"
-          className="input"
-          name="usuario"
-          required
-          onChange={(event) => {
-            setUsuario(event.target.value);
-          }}
-        />
-        <label className="text">Contraseña</label>
-        <input
-          type="text"
-          className="input"
-          name="pass"
-          required
-          onChange={(event) => {
-            setContraseña(event.target.value);
-          }}
-        />
-      </div>
-      <div className="divv">
-        <label className="text">Telefono</label>
-        <input
-          type="number"
-          className="input"
-          name="tel"
-          required
-          onChange={(event) => {
-            setTelefono(event.target.value);
-          }}
-        />
-        <label className="text">Email</label>
-        <input
-          type="email"
-          className="input"
-          name="email"
-          required
-          onChange={(event) => {
-            setEmail(event.target.value);
-          }}
-        />
-      </div>
-      <div className="divv">
-        <label className="text">Fecha de nacimiento</label>
-        <input
-          type="date"
-          className="input"
-          name="birth"
-          required
-          onChange={(event) => {
-            setBorn(event.target.value);
-          }}
-        />
-        <label className="text">Dirección</label>
-        <textarea
-          name="direccion"
-          className="input"
-          required
-          onChange={(event) => {
-            setDireccion(event.target.value);
-          }}
-        />
-      </div>
-      <input
-        className="button"
-        type="submit"
-        value="Registrar"
-        onClick={actionListener}
-      />
-    </form>
+      </form>
+    </div>
   );
 }
 
