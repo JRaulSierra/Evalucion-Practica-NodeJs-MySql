@@ -4,7 +4,6 @@ import Axios from "axios";
 import Swal from "sweetalert2";
 import Navbar from "../Navbar/Navbar";
 
-
 function Register() {
   const [nombre, setNombre] = useState("");
   const [apellidos, setApellidos] = useState("");
@@ -27,13 +26,20 @@ function Register() {
       email: email,
     });
     let data = res.data;
-    
+    console.log(data)
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Login Exitoso",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   return (
     // agregar un onsubmit
     <div>
-      <Navbar/>
+      <Navbar />
       <form className="form">
         <div className="title">Registro</div>
         <div className="divv">

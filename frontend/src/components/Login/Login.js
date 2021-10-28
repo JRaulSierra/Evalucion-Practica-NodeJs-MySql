@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import Swal from "sweetalert2";
 import Navbar from "../Navbar/Navbar";
-import Usuario from "../Usuario/Usuario";
+
 
 function Login() {
   const [email, setemail] = useState("");

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import "./Usuario.css";
 import Axios from "axios";
 import { useParams } from "react-router";
+import NavbarUsuario from "../NavbarUsuario/NavbarUsuario";
 
 function Usuario(props) {
   const [nombre, setNombre] = useState("");
@@ -46,11 +46,7 @@ function Usuario(props) {
   return (
     <div>
       <div>
-        <div className="Navbar">
-          <Link to="/login">Cerrar Sesion</Link>
-          <Link to="/agregar">Area de Desempeño</Link>
-          <Link to="/agregarlogros">Area de Logros</Link>
-        </div>
+        <NavbarUsuario/>
       </div>
       <div className="back">
         <h1>Modificar datos Del usuario</h1>
