@@ -5,31 +5,82 @@ import Button from "react-bootstrap/Button";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import Axios from "axios";
+import useContx from "../Context/Context";
 
 function UsuarioDesempeño(props) {
+  const { user, usuario } = useContx();
+  const [pos, setPos] = useState(0);
+  const [count, setCount] = useState(1);
   const [area, setArea] = useState("");
   const [op, setOp] = useState([]);
-  const [count,setCount] = useState(0)
-  const actionHandler = () => {
-    console.log(area);
+  const [table, setTable] = useState([]);
+
+  const actionHandler = async () => {
+    let res = await Axios.post(`http://localhost:3001/createtDesempeno`, {
+      id_usuarios: pos,
+      id_area: area,
+    });
   };
 
   useEffect(() => {
     async function axio() {
       let res = await Axios.get(`http://localhost:3001/getDesempeno`);
       let data = res.data;
-      setOp(data);
+      let ref = [];
+      ref.push(res.data);
+      let e = [];
+      ref[0].map((t) => {
+        e.push(
+          <option value={t.id_area} key={t.id_area}>
+            {t.tipo_area}
+          </option>
+        );
+      });
+      setOp(e);
+    }
+    axio();
+  }, []);
+
+  useEffect(() => {
+    async function axio() {
+      let usuarioPos = await Axios.get(
+        `http://localhost:3001/getUsuario/${usuario}`
+      );
+      let res = await Axios.get(
+        `http://localhost:3001/getDesempenoUsuario/${usuarioPos.data}`
+      );
+      setPos(usuarioPos.data);
+      let ref = [];
+      let data = res.data;
+      let moment = [];
+      ref.push(res.data);
+      let e = [];
+      ref[0].map(async (t) => {
+        let descrip = await Axios.get(
+          `http://localhost:3001/getDesempenoDescrip/${t.id_area}`
+        );
+
+        e.push(descrip.data[0]);
+      });
+      setTable(e);
+      setCount(count + 1);
     }
     axio();
   }, []);
 
   const options = () => {
-    op.map((dato) => {
-      if (op!==undefined) {
-        return <option value="1">aaaa</option>;
-      }
-    });
-    
+    return op;
+  };
+
+  const tableData = () => {
+    console.log(table);
+    return (
+      <tr>
+        <td>e</td>
+        <td>e</td>
+        <td>e</td>
+      </tr>
+    );
   };
 
   return (
@@ -64,16 +115,7 @@ function UsuarioDesempeño(props) {
               <th>Descripcion</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>#009846</td>
-              <td>
-                ghjghjghjkggjkghj hggggggggggggggg gggggggggggggggggg
-                gggggggggggggggggggg
-              </td>
-            </tr>
-          </tbody>
+          <tbody></tbody>
         </Table>
       </div>
     </div>

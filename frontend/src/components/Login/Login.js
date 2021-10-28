@@ -2,30 +2,33 @@ import Axios from "axios";
 import React, { useState } from "react";
 import "./Login.css";
 import Swal from "sweetalert2";
-import Navbar from "../Navbar/Navbar";
 
+import useContx from "../Context/Context";
+
+import { Link } from "react-router-dom";
+
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import NavbarHome from "../Navbar/Navbar";
 
 function Login() {
   const [email, setemail] = useState("");
   const [pass, setPass] = useState("");
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const { t } = useContx();
 
   const actionHandler = async () => {
+    t(email);
     let res = await Axios.post("http://localhost:3001/usuarios", {
       user: email,
       pass: pass,
     });
     let data = res.data;
     if (data) {
-      
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Login Exitoso",
-        showConfirmButton: false,
-        timer: 1500,
-      }).then(() => {
-         window.location.href = `/${email}`
-      });
+      handleShow();
+      console.log(show);
     } else {
       Swal.fire({
         icon: "error",
@@ -36,10 +39,10 @@ function Login() {
     }
   };
 
-
   return (
+    <>
     <div>
-      <Navbar/>
+      <NavbarHome />
       <div className="form">
         <div className="card">
           <div className="log">
@@ -74,8 +77,23 @@ function Login() {
             />
           </div>
         </div>
+       
       </div>
+      
     </div>
+    <Modal size="sm" show={show} onHide={handleClose}>
+          <Modal.Dialog>
+            <Modal.Header >
+              <Modal.Title>Yeiiiiiiii! Ingreso Exitoso</Modal.Title>
+            </Modal.Header>
+            <Modal.Footer>
+              <Button variant="primary"><Link to={`/${email}`} >
+                Ingresar
+              </Link></Button>
+            </Modal.Footer>
+          </Modal.Dialog>
+        </Modal>
+    </>
   );
 }
 

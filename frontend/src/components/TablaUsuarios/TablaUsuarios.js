@@ -1,33 +1,29 @@
 import { Axios } from "axios";
 import React, { useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
+import Table from "react-bootstrap/Table";
+import NavbarHome from "../Navbar/Navbar";
 
 function TablaUsuarios(props) {
   // useEffect(() => {
   //   const res = Axios.get("")
   // }, []);
   return (
-    <div>
-      <Navbar/>
-      <table border="1">
-        <caption> Colores en forma Hexadecimal. </caption>
-
-        <tr>
-          <td>Color</td>
-          <td>Verde</td>
-          <td>Azul</td>
-          <td>Rojo</td>
-          <td>Blanco</td>
-        </tr>
-
-        <tr>
-          <td>Hexadecimal</td>
-          <td>#009846</td>
-          <td>#0000ff</td>
-          <td>#ff0000</td>
-          <td>#ffffff</td>
-        </tr>
-      </table>
+    <div >
+      <NavbarHome/>
+      <div className="back">
+      <Table striped bordered hover size="sm">
+          <caption> visualizacion de los usuarios con su ultimo grado cursado </caption>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Usuario</th>
+              <th>Ultimo nivel de estudio</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </Table>
+      </div>
     </div>
   );
 }

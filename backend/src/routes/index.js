@@ -42,12 +42,38 @@ router.post("/usuarios", function (req, res) {
   );
 });
 
+
+
+router.get("/getDesempenoDescrip/:id", function (req, res) {
+  const { id } = req.params;
+  db.query(`SELECT * FROM area_de_desempeño WHERE id_area = "${id}"`, (err, row) => {
+    if (err) throw err;
+    res.send(JSON.stringify(row));
+  });
+});
+
+
+router.get("/getDesempenoUsuario/:id", function (req, res) {
+  const { id } = req.params;
+  db.query(`SELECT * FROM areas_de_desempeño WHERE id_usuarios Like "%${id}%"`, (err, row) => {
+    if (err) throw err;
+    res.send(JSON.stringify(row));
+  });
+});
+
+
+
+
+
 router.get("/getDesempeno", function (req, res) {
   db.query(`SELECT * FROM area_de_desempeño`, (err, row) => {
     if (err) throw err;
     res.send(JSON.stringify(row));
   });
 });
+
+
+
 
 router.post("/updateUsuario", function (req, res) {
   const {
@@ -115,6 +141,25 @@ router.post("/updateUsuario", function (req, res) {
   res.send(JSON.stringify("TodoCorrecto"));
 });
 
+
+
+
+router.post("/createtDesempeno", function (req, res) {
+  const {
+    id_usuarios,id_area
+  } = req.body;
+  db.query(
+    "INSERT INTO areas_de_desempeño (id_usuarios,id_area) VALUES (?,?)",
+    [id_usuarios,id_area],
+    (err, row) => {
+      if (err) throw err;
+      res.send(JSON.stringify(true));
+    }
+  );
+});
+
+
+
 router.get("/getUsuario/:id", function (req, res) {
   const { id } = req.params;
   const user = id;
@@ -122,11 +167,13 @@ router.get("/getUsuario/:id", function (req, res) {
     `SELECT id_usuarios FROM usuarios WHERE usuario LIKE "%${user}%"`,
     (err, row) => {
       if (err) throw err;
-      console.log(user);
       res.send(JSON.stringify(row[0].id_usuarios));
     }
   );
 });
+
+
+
 
 router.post("/createUsuario", function (req, res) {
   const {

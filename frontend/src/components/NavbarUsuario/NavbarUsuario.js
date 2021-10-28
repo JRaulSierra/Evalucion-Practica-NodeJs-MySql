@@ -8,7 +8,7 @@ function NavbarUsuario(props) {
     <div>
       <Navbar bg="primary" variant="dark">
         <NavLink to="/login">Cerrar Sesion</NavLink>
-        <NavLink to="/logros">Datos de usuario</NavLink>
+        <NavLink to="/modifyUser">Datos de usuario</NavLink>
 
         <NavLink to="/agregar">Area de Desempeño</NavLink>
 

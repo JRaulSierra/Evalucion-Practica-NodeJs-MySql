@@ -7,35 +7,42 @@ import TablaUsuarios from "./components/TablaUsuarios/TablaUsuarios";
 import Usuario from "./components/Usuario/Usuario";
 import UsuarioDesempeño from "./components/UsuarioDesempeño/UsuarioDesempeño";
 import UsuarioLogro from "./components/UsuarioLogro/UsuarioLogro";
+import ContextProvider from "./components/Context/ContextProvider";
+import Home from "./components/Home/Home";
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <Switch>
-        <Route path="/logros">
-            <UsuarioLogro/>
-          </Route>
-        <Route path="/agregar">
-            <UsuarioDesempeño/>
-          </Route>
-          <Route path="/tabla1">
-            <TablaUsuarios />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/tabla2">
-            <TablasCarreras />
-          </Route>
-          <Route path="/registro">
-            <Register />
-          </Route>
-          <Route path="/:id">
-            <Usuario />
-          </Route>
-          <Route path="/">Hola</Route>
-        </Switch>
+        <ContextProvider>
+          <Switch>
+          <Route path="/modifyUser">
+              <Usuario/>
+            </Route>
+            <Route path="/logros">
+              <UsuarioLogro />
+            </Route>
+            <Route path="/agregar">
+              <UsuarioDesempeño />
+            </Route>
+            <Route path="/tabla1">
+              <TablaUsuarios />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/tabla2">
+              <TablasCarreras />
+            </Route>
+            <Route path="/registro">
+              <Register />
+            </Route>
+            <Route path="/:id">
+              <Usuario />
+            </Route>
+            <Route path="/"><Home/></Route>
+          </Switch>
+        </ContextProvider>
       </Router>
     </div>
   );
