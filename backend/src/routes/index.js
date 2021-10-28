@@ -42,6 +42,13 @@ router.post("/usuarios", function (req, res) {
   );
 });
 
+router.get("/getDesempeno", function (req, res) {
+  db.query(`SELECT * FROM area_de_desempeño`, (err, row) => {
+    if (err) throw err;
+    res.send(JSON.stringify(row));
+  });
+});
+
 router.post("/updateUsuario", function (req, res) {
   const {
     nombre,

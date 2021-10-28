@@ -1,15 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavbarUsuario from "../NavbarUsuario/NavbarUsuario";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
+import Axios from "axios";
 
 function UsuarioDesempeño(props) {
   const [area, setArea] = useState("");
+  const [op, setOp] = useState([]);
+  const [count,setCount] = useState(0)
   const actionHandler = () => {
-      console.log(area)
+    console.log(area);
+  };
 
+  useEffect(() => {
+    async function axio() {
+      let res = await Axios.get(`http://localhost:3001/getDesempeno`);
+      let data = res.data;
+      setOp(data);
+    }
+    axio();
+  }, []);
+
+  const options = () => {
+    op.map((dato) => {
+      if (op!==undefined) {
+        return <option value="1">aaaa</option>;
+      }
+    });
+    
   };
 
   return (
@@ -28,9 +48,7 @@ function UsuarioDesempeño(props) {
               }}
             >
               <option></option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              {options()}
             </Form.Select>
           </FloatingLabel>
           <Button variant="success" onClick={actionHandler}>
