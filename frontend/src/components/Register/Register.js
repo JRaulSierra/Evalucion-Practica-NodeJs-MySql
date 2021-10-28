@@ -16,7 +16,6 @@ function Register() {
   const [email, setEmail] = useState("");
 
   const actionListener = async () => {
-    alert(apellidos);
     let res = await Axios.post("http://localhost:3001/createUsuario", {
       nombre: nombre,
       apellidos: apellidos,

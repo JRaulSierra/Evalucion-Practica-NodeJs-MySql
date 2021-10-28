@@ -18,7 +18,7 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/usuario/:id">
+          <Route path="/:id">
             <Usuario />
           </Route>
           <Route path="/tabla2">
